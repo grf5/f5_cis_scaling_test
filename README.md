@@ -2,6 +2,7 @@
 
 To create the configuration:
  
+<pre>
 usage: kube_scale_config.py [-h] --bigip BIGIP [--bigip_port BIGIP_PORT]
                             --username USERNAME --password PASSWORD
                             [--partitioncount PARTITIONCOUNT]
@@ -81,9 +82,11 @@ optional arguments:
                         default)
   --delete              flag used to delete a previous configuration - use the
                         exact cli args as the build!
+</pre>
 
 To query one or more partitions sequentially:
 
+<pre>
 usage: kube_cis_polling_simulator.py [-h] --bigip BIGIP
                                      [--bigip_port BIGIP_PORT] --username
                                      USERNAME --password PASSWORD --partitions
@@ -98,9 +101,11 @@ optional arguments:
   --password PASSWORD   password for the BIG-IP
   --partitions PARTITIONS [PARTITIONS ...]
                         list of partitions separated by spaces
+</pre>
 
 To query multiple domains simultaneously, edit and run the bash script:
 
+<pre>
 #!/usr/bin/env bash
 
 for run in {1..10}
@@ -117,4 +122,4 @@ do
     ./kube_cis_polling_simulator.py --bigip bigip13114-dnsohttpstls-6te01x3n.srv.ravcloud.com --username admin --password admin --partitions partition-10 &
 sleep 30
 done
-
+</pre>
