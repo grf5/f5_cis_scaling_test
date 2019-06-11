@@ -17,7 +17,7 @@ def icontrol_get(host,username,password,path):
         apiResponse = apiCall.get(apiUri,verify=False)
     except requests.exceptions.RequestException as e:
         abort_script(str(e))
-    return(apiResponse.text)
+    return(apiResponse)
 
 def icontrol_post(host,username,password,path,api_payload):
     apiCall = requests.session()
@@ -28,7 +28,7 @@ def icontrol_post(host,username,password,path,api_payload):
         apiResponse = apiCall.post(apiUri,verify=False,data=json.dumps(api_payload))
     except requests.exceptions.RequestException as e:
         abort_script(str(e))
-    return(apiResponse.text)
+    return(apiResponse)
 
 def icontrol_put(host,username,password,path,api_payload):
     apiCall = requests.session()
@@ -39,7 +39,7 @@ def icontrol_put(host,username,password,path,api_payload):
         apiResponse = apiCall.put(apiUri,verify=False,data=json.dumps(api_payload))
     except requests.exceptions.RequestException as e:
         abort_script(str(e))
-    return(apiResponse.text)
+    return(apiResponse)
 
 def icontrol_patch(host,username,password,path,api_payload):
     apiCall = requests.session()
@@ -50,7 +50,7 @@ def icontrol_patch(host,username,password,path,api_payload):
         apiResponse = apiCall.patch(apiUri,verify=False,data=json.dumps(api_payload))
     except requests.exceptions.RequestException as e:
         abort_script(str(e))
-    return(apiResponse.text)
+    return(apiResponse)
 
 def icontrol_delete(host,username,password,path,object):
     apiCall = requests.session()
@@ -61,7 +61,7 @@ def icontrol_delete(host,username,password,path,object):
         apiResponse = apiCall.delete(apiUri,verify=False)
     except requests.exceptions.RequestException as e:
         abort_script(str(e))
-    return(apiResponse.text)
+    return(apiResponse)
 
 def icontrol_test_connection(host,username,password):
     apiCall = requests.session()
@@ -87,4 +87,4 @@ def icontrol_save_config(host,username,password):
         apiResponse = apiCall.post(apiUri,verify=False,data=json.dumps({'command':'save'}))
     except requests.exceptions.RequestException as e:
         abort_script(str(e))
-    return(apiResponse.text)
+    return(apiResponse)

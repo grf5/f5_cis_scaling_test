@@ -29,26 +29,64 @@ partitions = parsed_args.partitions
 def kube_polling_simulation(target_partition):
     print('Polling partition ' + target_partition)
     start_time = time.perf_counter()
-    icontrol_get(bigip, username, password, '/auth/partition/' + target_partition)
-    icontrol_get(bigip, username, password, '/ltm/monitor/http/?$filter=partition+eq+' + target_partition)
-    icontrol_get(bigip, username, password, '/ltm/monitor/https/?$filter=partition+eq+' + target_partition)
-    icontrol_get(bigip, username, password, '/ltm/monitor/tcp/?$filter=partition+eq+' + target_partition)
-    icontrol_get(bigip, username, password, '/ltm/monitor/udp/?$filter=partition+eq+' + target_partition)
-    icontrol_get(bigip, username, password, '/ltm/monitor/gateway-icmp/?$filter=partition+eq+' + target_partition)
-    icontrol_get(bigip, username, password, '/sys/application/service/?$filter=partition+eq+' + target_partition)
-    icontrol_get(bigip, username, password, '/ltm/node/?$filter=partition+eq+' + target_partition)
-    icontrol_get(bigip, username, password, '/ltm/virtual-address/?$filter=partition+eq+' + target_partition)
-    icontrol_get(bigip, username, password, '/ltm/rule/?$filter=partition+eq+' + target_partition)
-    icontrol_get(bigip, username, password, '/ltm/data-group/internal/?$filter=partition+eq+' + target_partition)
-    icontrol_get(bigip, username, password, '/ltm/virtual/?$filter=partition+eq+' + target_partition + '&expandSubcollections=true')
-    icontrol_get(bigip, username, password, '/ltm/pool/?$filter=partition+eq+' + target_partition + '&expandSubcollections=true')
-    icontrol_get(bigip, username, password, '/ltm/policy/?$filter=partition+eq+' + target_partition + '&expandSubcollections=true')
-    icontrol_get(bigip, username, password, '/ltm/profile/client-ssl/?$filter=partition+eq+' + target_partition)
-    icontrol_get(bigip, username, password, '/sys/file/ssl-cert/?$filter=partition+eq+' + target_partition)
-    icontrol_get(bigip, username, password, '/sys/file/ssl-key/?$filter=partition+eq+' + target_partition)
-    icontrol_get(bigip, username, password, '/ltm/profile/server-ssl/?$filter=partition+eq+' + target_partition)
-    icontrol_get(bigip, username, password, '/sys/file/ssl-cert/?$filter=partition+eq+' + target_partition)
-    icontrol_get(bigip, username, password, '/sys/file/ssl-key/?$filter=partition+eq+' + target_partition)
+    apiResponse = icontrol_get(bigip, username, password, '/auth/partition/' + target_partition)
+    if apiResponse.status_code != 200:
+        print(apiResponse.text)
+    apiResponse = icontrol_get(bigip, username, password, '/ltm/monitor/http/?$filter=partition+eq+' + target_partition)
+    if apiResponse.status_code != 200:
+        print(apiResponse.text)
+    apiResponse = icontrol_get(bigip, username, password, '/ltm/monitor/https/?$filter=partition+eq+' + target_partition)
+    if apiResponse.status_code != 200:
+        print(apiResponse.text)
+    apiResponse = icontrol_get(bigip, username, password, '/ltm/monitor/tcp/?$filter=partition+eq+' + target_partition)
+    if apiResponse.status_code != 200:
+        print(apiResponse.text)
+    apiResponse = icontrol_get(bigip, username, password, '/ltm/monitor/udp/?$filter=partition+eq+' + target_partition)
+    if apiResponse.status_code != 200:
+        print(apiResponse.text)
+    apiResponse = icontrol_get(bigip, username, password, '/ltm/monitor/gateway-icmp/?$filter=partition+eq+' + target_partition)
+    if apiResponse.status_code != 200:
+        print(apiResponse.text)
+    apiResponse = icontrol_get(bigip, username, password, '/sys/application/service/?$filter=partition+eq+' + target_partition)
+    if apiResponse.status_code != 200:
+        print(apiResponse.text)
+    apiResponse = icontrol_get(bigip, username, password, '/ltm/node/?$filter=partition+eq+' + target_partition)
+    if apiResponse.status_code != 200:
+        print(apiResponse.text)
+    apiResponse = icontrol_get(bigip, username, password, '/ltm/virtual-address/?$filter=partition+eq+' + target_partition)
+    if apiResponse.status_code != 200:
+        print(apiResponse.text)
+    apiResponse = icontrol_get(bigip, username, password, '/ltm/rule/?$filter=partition+eq+' + target_partition)
+    if apiResponse.status_code != 200:
+        print(apiResponse.text)
+    apiResponse = icontrol_get(bigip, username, password, '/ltm/data-group/internal/?$filter=partition+eq+' + target_partition)
+    if apiResponse.status_code != 200:
+        print(apiResponse.text)
+    apiResponse = icontrol_get(bigip, username, password, '/ltm/virtual/?$filter=partition+eq+' + target_partition + '&expandSubcollections=true')
+    if apiResponse.status_code != 200:
+        print(apiResponse.text)
+    apiResponse = icontrol_get(bigip, username, password, '/ltm/pool/?$filter=partition+eq+' + target_partition + '&expandSubcollections=true')
+    if apiResponse.status_code != 200:
+        print(apiResponse.text)
+    apiResponse = icontrol_get(bigip, username, password, '/ltm/policy/?$filter=partition+eq+' + target_partition + '&expandSubcollections=true')
+    if apiResponse.status_code != 200:
+        print(apiResponse.text)
+    apiResponse = icontrol_get(bigip, username, password, '/ltm/profile/client-ssl/?$filter=partition+eq+' + target_partition)
+    if apiResponse.status_code != 200:
+        print(apiResponse.text)
+    apiResponse = icontrol_get(bigip, username, password, '/sys/file/ssl-cert/?$filter=partition+eq+' + target_partition)
+    if apiResponse.status_code != 200:
+        print(apiResponse.text)
+    apiResponse = icontrol_get(bigip, username, password, '/sys/file/ssl-key/?$filter=partition+eq+' + target_partition)
+    if apiResponse.status_code != 200:
+        print(apiResponse.text)
+    apiResponse = icontrol_get(bigip, username, password, '/ltm/profile/server-ssl/?$filter=partition+eq+' + target_partition)
+    if apiResponse.status_code != 200:
+        print(apiResponse.text)
+    apiResponse = icontrol_get(bigip, username, password, '/sys/file/ssl-cert/?$filter=partition+eq+' + target_partition)
+    if apiResponse.status_code != 200:
+        print(apiResponse.text)
+    apiResponse = icontrol_get(bigip, username, password, '/sys/file/ssl-key/?$filter=partition+eq+' + target_partition)
     time_to_completion = time.perf_counter() - start_time
     print('Polled partition ' + target_partition + ' in ' + str(time_to_completion) + ' seconds')
 
