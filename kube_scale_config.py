@@ -122,14 +122,16 @@ if __name__ == "__main__":
             api_payload['id'] = current_partition['id']
             print('Creating partition ' + str(api_payload))
             api_response = icontrol_post(bigip, username, password, '/auth/partition', api_payload)
-            print(api_response)
+            if not api_response.ok:
+                print(api_response.text)
             for current_virtual in current_partition['virtuals']:
                 api_payload = {}
                 api_payload['name'] = current_virtual['pool']['monitor']
                 api_payload['partition'] = current_partition['name']
                 print('Creating pool monitor ' + str(api_payload))
                 api_response = icontrol_post(bigip, username, password, '/ltm/monitor/' + poolmonitortype, api_payload)
-                print(api_response)
+                if not api_response.ok:
+                    print(api_response.text)
                 api_payload = {}
                 api_payload['name'] = current_virtual['pool']['name']
                 api_payload['partition'] = current_partition['name']
@@ -137,7 +139,8 @@ if __name__ == "__main__":
                 api_payload['members'] = current_virtual['pool']['members']
                 print('Creating pool ' + str(api_payload))
                 api_response = icontrol_post(bigip, username, password, '/ltm/pool', api_payload)
-                print(api_response)
+                if not api_response.ok:
+                    print(api_response.text)
                 api_payload = {}
                 api_payload['name'] = current_virtual['name']
                 api_payload['partition'] = current_partition['name']
@@ -152,20 +155,20 @@ if __name__ == "__main__":
             for current_virtual in current_partition['virtuals']:
                 print('Deleting virtual ' + '/~' + current_partition['name'] + '~' + current_virtual['name'])
                 api_response = icontrol_delete(bigip, username, password, '/ltm/virtual', '/~' + current_partition['name'] + '~' + current_virtual['name'])
-                if api_response != "":
+                if not api_response.ok:
                     print(api_response)
                 print('Deleting pool ' + '/~' + current_partition['name'] + '~' + current_virtual['pool']['name'])
                 api_response = icontrol_delete(bigip, username, password, '/ltm/pool', '/~' + current_partition['name'] + '~' + current_virtual['pool']['name'])
-                if api_response != "":
+                if not api_response.ok:
                     print(api_response)
                 print('Deleting monitor ' + '/~' + current_partition['name'] + '~' + current_virtual['pool']['monitor'])
                 api_response = icontrol_delete(bigip, username, password, '/ltm/monitor/' + poolmonitortype, '/~' + current_partition['name'] + '~' + current_virtual['pool']['monitor'])
-                if api_response != "":
+                if not api_response.ok:
                     print(api_response)
                 for current_node in current_virtual['pool']['nodes']:
                     print('Deleting node ' + '/~' + current_partition['name'] + '~' + current_node)
                     api_response = icontrol_delete(bigip, username, password, '/ltm/node', '/~' + current_partition['name'] + '~' + current_node)
-                    if api_response != "":
+                    if not api_response.ok:
                         print(api_response)
             print('Deleting partition ' + current_partition['name'])
             api_response = icontrol_delete(bigip, username, password, '/auth/partition/',  current_partition['name'])
