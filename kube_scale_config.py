@@ -36,6 +36,7 @@ cmdargs.add_argument('--poolmemberaddressbase', action='store', required=False, 
 cmdargs.add_argument('--poolmemberportbase', action='store', required=False, type=int,help='port for pool members (defaults to 10)', default=10)
 cmdargs.add_argument('--poolmemberincrementport', action='store_true', required=False,help='flag to increment pool member port number (off by default)')
 cmdargs.add_argument('--poolmemberincrementaddress', action='store_false', required=False,help='flag to increment pool member ip address (on by default)')
+cmdargs.add_argument('--deletenodes', action='store_false', required=False,help='flag used to delete nodes (on by default)')
 cmdargs.add_argument('--delete', action='store_true', required=False,help='flag used to delete a previous configuration - use the exact cli args as the build!')
 
 parsed_args = cmdargs.parse_args()
@@ -65,6 +66,7 @@ poolmemberportbase = parsed_args.poolmemberportbase
 poolmemberincrementport = parsed_args.poolmemberincrementport
 poolmemberincrementaddress = parsed_args.poolmemberincrementaddress
 deletemode = parsed_args.delete
+deletenodes = parsed_args.deletenodes
 
 partitions = []
 
@@ -165,11 +167,12 @@ if __name__ == "__main__":
                 api_response = icontrol_delete(bigip, username, password, '/ltm/monitor/' + poolmonitortype, '/~' + current_partition['name'] + '~' + current_virtual['pool']['monitor'])
                 if not api_response.ok:
                     print(api_response)
-                for current_node in current_virtual['pool']['nodes']:
-                    print('Deleting node ' + '/~' + current_partition['name'] + '~' + current_node)
-                    api_response = icontrol_delete(bigip, username, password, '/ltm/node', '/~' + current_partition['name'] + '~' + current_node)
-                    if not api_response.ok:
-                        print(api_response)
+                if deletenodes:
+                    for current_node in current_virtual['pool']['nodes']:
+                        print('Deleting node ' + '/~' + current_partition['name'] + '~' + current_node)
+                        api_response = icontrol_delete(bigip, username, password, '/ltm/node', '/~' + current_partition['name'] + '~' + current_node)
+                        if not api_response.ok:
+                            print(api_response)
             print('Deleting partition ' + current_partition['name'])
             api_response = icontrol_delete(bigip, username, password, '/auth/partition/',  current_partition['name'])
             if not api_response.ok:
