@@ -31,7 +31,7 @@ cmdargs.add_argument('--poolmembercount', action='store', required=False, type=i
 cmdargs.add_argument('--poolmemberprefix', action='store', required=False, type=str,help='pool member name prefix (defaults to poolmember-)', default='poolmember-')
 cmdargs.add_argument('--poolmonitorprefix', action='store', required=False, type=str,help='pool monitor name prefix (defaults to poolmonitor-)', default='poolmonitor-')
 cmdargs.add_argument('--poolmonitortype', action='store', required=False, type=str,help='pool monitor type [http | gateway-icmp ] (defaults to http)', default='http')
-cmdargs.add_argument('--poolmemberaddressprefix', action='store', required=False, type=str,help='first octet of pool member addresses (defaults to 10.)', default='10.')
+cmdargs.add_argument('--poolmemberaddressprefix', action='store', required=False, type=str,help='first octet of pool member addresses (defaults to 10.1.1)', default='10.1.1.')
 cmdargs.add_argument('--poolmemberaddressbase', action='store', required=False, type=int,help='first host octet of pool member addresses (defaults to 1)', default=1)
 cmdargs.add_argument('--poolmemberportbase', action='store', required=False, type=int,help='port for pool members (defaults to 443)', default=443)
 cmdargs.add_argument('--poolmemberincrementport', action='store_true', required=False,help='flag to increment pool member port number (off by default)')
@@ -95,9 +95,9 @@ for current_partition in range(partitionbase, partitioncount + 1):
         pooldef['nodes'] = []
         for current_member in range(1, poolmembercount + 1):
             if poolmemberincrementaddress == True:
-                current_pool_member_address = poolmemberaddressprefix + str(current_partition) + '.' + str(current_virtual) + '.' + str(poolmemberaddressbase + current_member - 1)
+                current_pool_member_address = poolmemberaddressprefix  + str(poolmemberaddressbase + current_member - 1)
             elif poolmemberincrementaddress == False:
-                current_pool_member_address = poolmemberaddressprefix + str(current_partition) + '.' + str(current_virtual) + '.' + str(poolmemberaddressbase)
+                current_pool_member_address = poolmemberaddressprefix + str(poolmemberaddressbase)
             if poolmemberincrementport == True:
                 current_pool_member_port = str(poolmemberportbase + current_member - 1)
             elif poolmemberincrementport == False:
