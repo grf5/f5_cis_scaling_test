@@ -33,7 +33,7 @@ cmdargs.add_argument('--poolmonitorprefix', action='store', required=False, type
 cmdargs.add_argument('--poolmonitortype', action='store', required=False, type=str,help='pool monitor type [http | gateway-icmp ] (defaults to http)', default='http')
 cmdargs.add_argument('--poolmemberaddressprefix', action='store', required=False, type=str,help='first octet of pool member addresses (defaults to 10.)', default='10.')
 cmdargs.add_argument('--poolmemberaddressbase', action='store', required=False, type=int,help='first host octet of pool member addresses (defaults to 1)', default=1)
-cmdargs.add_argument('--poolmemberportbase', action='store', required=False, type=int,help='port for pool members (defaults to 443)', default=443)
+cmdargs.add_argument('--poolmemberportbase', action='store', required=False, type=int,help='port for pool members (defaults to 10)', default=10)
 cmdargs.add_argument('--poolmemberincrementport', action='store_true', required=False,help='flag to increment pool member port number (off by default)')
 cmdargs.add_argument('--poolmemberincrementaddress', action='store_false', required=False,help='flag to increment pool member ip address (on by default)')
 cmdargs.add_argument('--delete', action='store_true', required=False,help='flag used to delete a previous configuration - use the exact cli args as the build!')
