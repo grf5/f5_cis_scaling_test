@@ -145,7 +145,8 @@ if __name__ == "__main__":
                 api_payload['sourceAddressTranslation'] = current_virtual['sourceAddressTranslation']
                 print('Creating virtual ' + str(api_payload))
                 api_response = icontrol_post(bigip, username, password, '/ltm/virtual', api_payload)
-                print(api_response)
+                if not api_response.ok:
+                    print(api_response.text)
     elif deletemode == True:
         for current_partition in partitions:
             for current_virtual in current_partition['virtuals']:
@@ -168,6 +169,6 @@ if __name__ == "__main__":
                         print(api_response)
             print('Deleting partition ' + current_partition['name'])
             api_response = icontrol_delete(bigip, username, password, '/auth/partition/',  current_partition['name'])
-            if api_response != "":
-                print(api_response)
+            if not api_response.ok:
+                print(api_response.text)
     icontrol_save_config(bigip, username, password)
