@@ -122,7 +122,7 @@ if __name__ == "__main__":
             api_payload = {}
             api_payload['name'] = current_partition['name']
             api_payload['id'] = current_partition['id']
-            print('Creating partition ' + str(api_payload))
+            print('Creating partition ' + str(api_payload['name']))
             api_response = icontrol_post(bigip, username, password, '/auth/partition', api_payload)
             if not api_response.ok:
                 print(api_response.text)
@@ -130,7 +130,7 @@ if __name__ == "__main__":
                 api_payload = {}
                 api_payload['name'] = current_virtual['pool']['monitor']
                 api_payload['partition'] = current_partition['name']
-                print('Creating pool monitor ' + str(api_payload))
+                print('Creating pool monitor ' + str(api_payload['name']))
                 api_response = icontrol_post(bigip, username, password, '/ltm/monitor/' + poolmonitortype, api_payload)
                 if not api_response.ok:
                     print(api_response.text)
@@ -139,7 +139,7 @@ if __name__ == "__main__":
                 api_payload['partition'] = current_partition['name']
                 api_payload['monitor'] = current_virtual['pool']['monitor']
                 api_payload['members'] = current_virtual['pool']['members']
-                print('Creating pool ' + str(api_payload))
+                print('Creating pool ' + str(api_payload['name']))
                 api_response = icontrol_post(bigip, username, password, '/ltm/pool', api_payload)
                 if not api_response.ok:
                     print(api_response.text)
@@ -148,7 +148,7 @@ if __name__ == "__main__":
                 api_payload['partition'] = current_partition['name']
                 api_payload['destination'] = current_virtual['destination']
                 api_payload['sourceAddressTranslation'] = current_virtual['sourceAddressTranslation']
-                print('Creating virtual ' + str(api_payload))
+                print('Creating virtual ' + str(api_payload['name']))
                 api_response = icontrol_post(bigip, username, password, '/ltm/virtual', api_payload)
                 if not api_response.ok:
                     print(api_response.text)
