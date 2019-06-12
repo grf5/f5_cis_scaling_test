@@ -95,9 +95,9 @@ for current_partition in range(partitionbase, partitioncount + 1):
         pooldef['nodes'] = []
         for current_member in range(1, poolmembercount + 1):
             if poolmemberincrementaddress == True:
-                current_pool_member_address = poolmemberaddressprefix + str(current_partition) + '.' + str(current_virtual) + '.' + str(poolmemberaddressbase + current_member - 1)
+                current_pool_member_address = poolmemberaddressprefix + str(current_partition) + '.' + str(current_partition) + '.' + str(poolmemberaddressbase + current_member - 1)
             elif poolmemberincrementaddress == False:
-                current_pool_member_address = poolmemberaddressprefix + str(current_partition) + '.' + str(current_virtual) + '.' + str(poolmemberaddressbase)
+                current_pool_member_address = poolmemberaddressprefix + str(current_partition) + '.' + str(current_partition) + '.' + str(poolmemberaddressbase)
             if poolmemberincrementport == True:
                 current_pool_member_port = str(poolmemberportbase + current_member - 1)
             elif poolmemberincrementport == False:
