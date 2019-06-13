@@ -70,7 +70,7 @@ skipnodedeletion = parsed_args.skipnodedeletion
 
 partitions = []
 
-for current_partition in range(partitionbase, partitioncount + 1):
+for current_partition in range(partitionbase, partitioncount + partitionbase):
     partitiondef = {}
     partitiondef['name'] = partitionprefix + str(current_partition)
     partitiondef['id'] = current_partition
