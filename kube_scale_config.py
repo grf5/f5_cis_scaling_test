@@ -33,7 +33,7 @@ cmdargs.add_argument('--poolmonitorprefix', action='store', required=False, type
 cmdargs.add_argument('--poolmonitortype', action='store', required=False, type=str,help='pool monitor type [http | gateway-icmp ] (defaults to http)', default='http')
 cmdargs.add_argument('--poolmemberaddressprefix', action='store', required=False, type=str,help='first octet of pool member addresses (defaults to 10.)', default='10.')
 cmdargs.add_argument('--poolmemberaddressbase', action='store', required=False, type=int,help='first host octet of pool member addresses (defaults to 1)', default=1)
-cmdargs.add_argument('--poolmemberportbase', action='store', required=False, type=int,help='port for pool members (defaults to 5)', default=5)
+cmdargs.add_argument('--poolmemberportbase', action='store', required=False, type=int,help='port for pool members (defaults to none)', default=0)
 cmdargs.add_argument('--poolmemberincrementport', action='store_true', required=False,help='flag to increment pool member port number (off by default)')
 cmdargs.add_argument('--poolmemberincrementaddress', action='store_false', required=False,help='flag to increment pool member ip address (on by default)')
 cmdargs.add_argument('--skipnodedeletion', action='store_true', required=False,help='flag used to delete nodes (on by default)')
@@ -101,10 +101,11 @@ for current_partition in range(partitionbase, partitioncount + partitionbase):
             elif poolmemberincrementaddress == False:
                 current_pool_member_address = poolmemberaddressprefix + str(current_partition) + '.' + str(current_partition) + '.' + str(poolmemberaddressbase)
             if poolmemberincrementport == True:
-                current_pool_member_port = str(poolmemberportbase + current_member - 1)
+                current_pool_member_port = str(poolmemberportbase + current_member - 1) + str(current_partition) + str(current_virtual)
             elif poolmemberincrementport == False:
-                current_pool_member_port = str(poolmemberportbase)
-            current_pool_member = current_pool_member_address + ':' + current_pool_member_port + str(current_partition) + str(current_virtual)
+                current_pool_member_port = str(poolmemberportbase) + str(current_partition) + str(current_virtual)
+            current_pool_member = current_pool_member_address + ':' + str(current_partition) + str(current_virtual)
+            #current_pool_member = current_pool_member_address + ':' + current_pool_member_port
             pooldef['members'].append(current_pool_member)
             pooldef['nodes'].append(current_pool_member_address)
         virtualdef['pool'] = pooldef
